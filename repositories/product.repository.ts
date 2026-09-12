@@ -1,5 +1,5 @@
-import {UpdateProductDto} from "../dto/update-product.dto";
-import { Product } from "../models/product";
+import {UpdateProductDto} from "../dto/update-product.dto.js";
+import { Product } from "../models/product.js";
 
 export interface ProductRepository {
     findAll(): Product[];

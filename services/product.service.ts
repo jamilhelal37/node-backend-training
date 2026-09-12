@@ -1,18 +1,18 @@
 import {
     ProductRepository
-} from "../repositories/product.repository";
+} from "../repositories/product.repository.js";
 
 import {
     Product
-} from "../models/product";
+} from "../models/product.js";
 
 import {
     CreateProductDto
-} from "../dto/create-product.dto";
+} from "../dto/create-product.dto.js";
 
 import {
     UpdateProductDto
-} from "../dto/update-product.dto";
+} from "../dto/update-product.dto.js";
 
 export class ProductService {
     private nextId = 1;

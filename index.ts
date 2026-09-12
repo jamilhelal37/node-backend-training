@@ -1,5 +1,5 @@
-import { InMemoryProductRepository } from "./repositories/product.repository";
-import { ProductService } from "./services/product.service";
+import { InMemoryProductRepository } from "./repositories/product.repository.js";
+import { ProductService } from "./services/product.service.js";
 
 const repository = new InMemoryProductRepository();
 

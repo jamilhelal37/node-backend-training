@@ -1,5 +1,8 @@
 import express from "express";
 
+import categoryRouter
+    from "./routes/category.routes.js";
+
 import productRouter
     from "./routes/product.routes.js";
 
@@ -22,6 +25,7 @@ app.use(
     "/products",
     productRouter
 );
+app.use("/categories", categoryRouter);
 
 app.use(
     notFoundHandler

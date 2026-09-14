@@ -38,6 +38,6 @@ export const requireRoles = (
             );
         }
 
-        next();
+        return next();
     };
 };

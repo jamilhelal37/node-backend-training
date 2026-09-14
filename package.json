@@ -4,7 +4,10 @@
   "description": "Node.js backend development training",
   "main": "index.js",
   "scripts": {
-    "start": "tsx 02-typescript/index.ts",
+    "dev:express": "tsx watch 04-express/app.ts",
+    "dev:auth": "tsx watch 05-express-auth/app.ts",
+    "start:auth": "tsx 05-express-auth/app.ts",
+    "typecheck": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

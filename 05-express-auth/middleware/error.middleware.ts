@@ -14,6 +14,10 @@ export const errorHandler = (
     res: Response,
     next: NextFunction
 ) => {
+    if (res.headersSent) {
+        return next(error);
+    }
+
     if (error instanceof AppError) {
         return res
             .status(error.statusCode)
@@ -24,7 +28,10 @@ export const errorHandler = (
 
     console.error(error);
 
-    return res.status(500).json({
-        message: "Internal server error",
-    });
+    return res
+        .status(500)
+        .json({
+            message:
+                "Internal server error",
+        });
 };

@@ -6,7 +6,11 @@ import type {
 
 import {
     CategoryService
-} from "../services/Category.Service.js";
+} from "../services/category.service.js";
+
+import {
+    parseId
+} from "../utils/parse-id.js";
 
 const categoryService =
     new CategoryService();
@@ -20,11 +24,11 @@ export const getCategories = (
         const categories =
             categoryService.getAll();
 
-        return res.status(200).json(
-            categories
-        );
+        return res
+            .status(200)
+            .json(categories);
     } catch (error) {
-        next(error);
+        return next(error);
     }
 };
 
@@ -35,16 +39,16 @@ export const getCategoryById = (
 ) => {
     try {
         const id =
-            Number(req.params.id);
+            parseId(req.params.id);
 
         const category =
             categoryService.getById(id);
 
-        return res.status(200).json(
-            category
-        );
+        return res
+            .status(200)
+            .json(category);
     } catch (error) {
-        next(error);
+        return next(error);
     }
 };
 
@@ -59,11 +63,11 @@ export const createCategory = (
                 req.body
             );
 
-        return res.status(201).json(
-            category
-        );
+        return res
+            .status(201)
+            .json(category);
     } catch (error) {
-        next(error);
+        return next(error);
     }
 };
 
@@ -74,7 +78,7 @@ export const updateCategory = (
 ) => {
     try {
         const id =
-            Number(req.params.id);
+            parseId(req.params.id);
 
         const category =
             categoryService.update(
@@ -82,11 +86,11 @@ export const updateCategory = (
                 req.body
             );
 
-        return res.status(200).json(
-            category
-        );
+        return res
+            .status(200)
+            .json(category);
     } catch (error) {
-        next(error);
+        return next(error);
     }
 };
 
@@ -97,15 +101,14 @@ export const deleteCategory = (
 ) => {
     try {
         const id =
-            Number(req.params.id);
+            parseId(req.params.id);
 
         categoryService.delete(id);
 
-        return res.status(200).json({
-            message:
-                "Category deleted successfully",
-        });
+        return res
+            .status(204)
+            .send();
     } catch (error) {
-        next(error);
+        return next(error);
     }
 };

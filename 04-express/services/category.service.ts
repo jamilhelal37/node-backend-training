@@ -1,14 +1,14 @@
 import type {
     Category
-} from "../models/Category.js";
+} from "../models/category.js";
 
 import type {
     CreateCategoryDto
-} from "../dto/CreateCategoryDto.js";
+} from "../dto/create-category.dto.js";
 
 import type {
     UpdateCategoryDto
-} from "../dto/UpdateCategoryDto.js";
+} from "../dto/update-category.dto.js";
 
 import {
     AppError

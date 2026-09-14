@@ -13,7 +13,7 @@ export const notFoundHandler = (
     res: Response,
     next: NextFunction
 ) => {
-    next(
+    return next(
         new AppError(
             `Route ${req.method} ${req.originalUrl} not found`,
             404

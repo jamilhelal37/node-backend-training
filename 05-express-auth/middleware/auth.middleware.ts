@@ -13,6 +13,7 @@ import {
 import {
     Role
 } from "../models/user.js";
+import {env} from "../config/env.js";
 
 export interface AuthPayload {
     sub: number;
@@ -48,20 +49,13 @@ export const authMiddleware = (
         );
     }
 
-    const jwtSecret =
-        process.env.JWT_SECRET;
 
-    if (!jwtSecret) {
-        throw new Error(
-            "JWT_SECRET is not configured"
-        );
-    }
 
     try {
         const decoded =
             jwt.verify(
                 token,
-                jwtSecret
+                env.jwtSecret
             );
 
         if (

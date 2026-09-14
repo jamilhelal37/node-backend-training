@@ -1,5 +1,7 @@
-import express from "express";
 import "dotenv/config";
+
+import express from "express";
+
 import authRouter
     from "./routes/auth.routes.js";
 
@@ -11,12 +13,26 @@ import {
     errorHandler
 } from "./middleware/error.middleware.js";
 
-const app = express();
+import {
+    env
+} from "./config/env.js";
 
-const PORT = 3000;
+const app =
+    express();
 
 app.use(
     express.json()
+);
+
+app.get(
+    "/health",
+    (req, res) => {
+        return res
+            .status(200)
+            .json({
+                status: "ok",
+            });
+    }
 );
 
 app.use(
@@ -33,10 +49,10 @@ app.use(
 );
 
 app.listen(
-    PORT,
+    env.port,
     () => {
         console.log(
-            `Server running on http://localhost:${PORT}`
+            `Server running on http://localhost:${env.port}`
         );
     }
 );

@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-
+import {
+    env
+} from "../config/env.js";
 import type {
     User
 } from "../models/user.js";
@@ -36,7 +38,6 @@ export class AuthService {
         data: RegisterDto
     ): Promise<UserResponseDto> {
 
-        // Validate name
         if (
             typeof data.name !== "string" ||
             !data.name.trim()
@@ -47,7 +48,6 @@ export class AuthService {
             );
         }
 
-        // Validate email
         if (
             typeof data.email !== "string" ||
             !data.email.trim() ||
@@ -59,7 +59,7 @@ export class AuthService {
             );
         }
 
-        // Validate password
+
         if (
             typeof data.password !== "string" ||
             data.password.length < 6
@@ -75,7 +75,7 @@ export class AuthService {
                 .trim()
                 .toLowerCase();
 
-        // Check duplicate email
+
         const existingUser =
             this.users.find(
                 user =>
@@ -89,7 +89,7 @@ export class AuthService {
             );
         }
 
-        // Hash password
+
         const hashedPassword =
             await bcrypt.hash(
                 data.password,
@@ -123,7 +123,7 @@ export class AuthService {
             newUser
         );
 
-        // Remove password from response
+
         const {
             password,
             ...userWithoutPassword
@@ -136,7 +136,7 @@ export class AuthService {
         data: LoginDto
     ): Promise<AuthResponseDto> {
 
-        // Basic email validation
+
         if (
             typeof data.email !== "string" ||
             !data.email.trim()
@@ -147,7 +147,7 @@ export class AuthService {
             );
         }
 
-        // Basic password validation
+
         if (
             typeof data.password !== "string" ||
             !data.password
@@ -163,7 +163,7 @@ export class AuthService {
                 .trim()
                 .toLowerCase();
 
-        // Find user
+
         const user =
             this.users.find(
                 user =>
@@ -177,7 +177,7 @@ export class AuthService {
             );
         }
 
-        // Compare password with stored hash
+
         const passwordMatches =
             await bcrypt.compare(
                 data.password,
@@ -191,22 +191,14 @@ export class AuthService {
             );
         }
 
-        // Remove password from returned user
+
         const {
             password,
             ...userWithoutPassword
         } = user;
 
-        const jwtSecret =
-            process.env.JWT_SECRET;
 
-        if (!jwtSecret) {
-            throw new Error(
-                "JWT_SECRET is not configured"
-            );
-        }
 
-        // Generate access token
         const accessToken =
             jwt.sign(
                 {
@@ -214,12 +206,11 @@ export class AuthService {
                     email: user.email,
                     role: user.role,
                 },
-                jwtSecret,
+                env.jwtSecret,
                 {
                     expiresIn: "1h",
                 }
             );
-
         return {
             accessToken,
             user: userWithoutPassword,

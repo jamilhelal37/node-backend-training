@@ -7,6 +7,7 @@ import type {
 import {
     ProductService
 } from "../services/product.service.js";
+import {parseId} from "../utils/parse-id.js";
 
 const productService =
     new ProductService();
@@ -34,8 +35,7 @@ export const getProductById = (
     next: NextFunction
 ) => {
     try {
-        const id =
-            Number(req.params.id);
+        const id =parseId(req.params.id);
 
         const product =
             productService.getById(id);
@@ -74,7 +74,7 @@ export const updateProduct = (
 ) => {
     try {
         const id =
-            Number(req.params.id);
+            parseId(req.params.id);
 
         const product =
             productService.update(
@@ -97,7 +97,7 @@ export const deleteProduct = (
 ) => {
     try {
         const id =
-            Number(req.params.id);
+            parseId(req.params.id);
 
         productService.delete(id);
 
